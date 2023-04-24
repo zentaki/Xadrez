@@ -1,6 +1,7 @@
 package entities;
 
 import entities.enums.Color;
+import exception.BoardException;
 
 public class ChessMatch {
 	private Board board;
@@ -11,19 +12,11 @@ public class ChessMatch {
 	private ChessPiece enPassantVulnerable;
 	private ChessPiece promoted;
 	
-	public ChessMatch() {
+	public ChessMatch() throws BoardException {
 		board = new Board(8,8);
+		initalSetup();
 	}
-	public ChessMatch(int turn, Color currentPlayer, boolean check, boolean checkMate, ChessPiece enPassantVulnerable,
-			ChessPiece promoted) {
-		board = new Board(8,8);
-		this.turn = turn;
-		this.currentPlayer = currentPlayer;
-		this.check = check;
-		this.checkMate = checkMate;
-		this.enPassantVulnerable = enPassantVulnerable;
-		this.promoted = promoted;
-	}
+	
 	
 	public int getTurn() {return turn;}
 	public Color getCurrentPlayer() {return currentPlayer;}
@@ -32,7 +25,7 @@ public class ChessMatch {
 	public ChessPiece getEnPassantVulnerable() {return enPassantVulnerable;}
 	public ChessPiece getPromoted() {return promoted;}
 
-	public ChessPiece[][] getPieces(){
+	public ChessPiece[][] getPieces() throws BoardException{
 		ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColumns()];
 		for(int i=0; i < board.getRows(); i++) {
 			for(int j=0; j < board.getColumns(); j++) {
@@ -52,6 +45,34 @@ public class ChessMatch {
 	
 	public ChessPiece replacePromotedPiece(String type) {
 		return null;
+	}
+	
+	private void initalSetup() throws BoardException {
+		
+		board.placePiece(new Rook(board, Color.BLACK), new Position(0,0));
+		board.placePiece(new Knight(board, Color.BLACK), new Position(0,1));
+		board.placePiece(new Bishop(board, Color.BLACK), new Position(0,2));
+		board.placePiece(new Queen(board, Color.BLACK), new Position(0,3));
+		board.placePiece(new King(board, Color.BLACK), new Position(0,4));
+		board.placePiece(new Bishop(board, Color.BLACK), new Position(0,5));
+		board.placePiece(new Knight(board, Color.BLACK), new Position(0,6));
+		board.placePiece(new Rook(board, Color.BLACK), new Position(0,7));
+		
+		
+		board.placePiece(new Rook(board, Color.WHITE), new Position(7,0));
+		board.placePiece(new Knight(board, Color.WHITE), new Position(7,1));
+		board.placePiece(new Bishop(board, Color.WHITE), new Position(7,2));
+		board.placePiece(new King(board, Color.WHITE), new Position(7,3));
+		board.placePiece(new Queen(board, Color.WHITE), new Position(7,4));
+		board.placePiece(new Bishop(board, Color.WHITE), new Position(7,5));
+		board.placePiece(new Knight(board, Color.WHITE), new Position(7,6));
+		board.placePiece(new Rook(board, Color.WHITE), new Position(7,7));
+		
+		for(int i=0; i < board.getColumns(); i++) {
+			board.placePiece(new Pawn(board, Color.BLACK), new Position(1,i));
+			board.placePiece(new Pawn(board, Color.WHITE), new Position(6,i));
+		}
+		
 	}
 	
 }

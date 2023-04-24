@@ -3,10 +3,11 @@ package program;
 import java.util.Scanner;
 
 import entities.ChessMatch;
+import exception.BoardException;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws BoardException {
 		Scanner sc = new Scanner(System.in);		
 		clearScreen();
 		

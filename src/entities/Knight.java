@@ -2,22 +2,21 @@ package entities;
 
 import entities.enums.Color;
 
-public class Pawn extends ChessPiece{
+public class Knight extends ChessPiece{
 
-	public Pawn(Board board, Color color) {
+	public Knight(Board board, Color color) {
 		super(board, color);
 	}
 	
 	@Override
 	public String toString() {
-		return "P";
+		return "H";
 	}
 
 	@Override
 	public boolean[][] possibleMoves() {
+		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
-	
+
 }
