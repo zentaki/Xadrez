@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 import entities.ChessMatch;
 import exception.BoardException;
+import exception.ChessException;
 
 public class Main {
 
-	public static void main(String[] args) throws BoardException {
+	public static void main(String[] args) throws BoardException, ChessException {
 		Scanner sc = new Scanner(System.in);		
 		clearScreen();
 		
