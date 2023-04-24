@@ -8,6 +8,10 @@ public class Position {
 		this.row = row;
 		this.column = column;
 	}
+	public Position(Position position) {
+		this.row = position.row;
+		this.column = position.column;
+	}
 
 	public int getRow() {return row;}
 	public int getColumn() {return column;}

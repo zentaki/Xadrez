@@ -1,13 +1,14 @@
 package entities;
 
 public abstract class Piece {
-	private Position position;
+	protected Position position;
+	private Board board;
 
-	public Piece(Position position) {
-		this.position = position;
+	public Piece(Board board) {
+		this.board = board;
 	}
 
-	public Position getPosition() {return position;}
+	protected Board getBoard() {return board;}
 	
 	public abstract boolean[][] possibleMoves();
 	

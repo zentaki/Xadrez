@@ -2,15 +2,17 @@ package program;
 
 import java.util.Scanner;
 
+import entities.ChessMatch;
+
 public class Main {
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("frase");		
+		Scanner sc = new Scanner(System.in);		
 		clearScreen();
-
-		System.out.print("Digite algum número: ");		
-		int i = sc.nextInt();
+		
+		ChessMatch chessMatch = new ChessMatch();
+		UI.printBoard(chessMatch.getPieces());
+	
 		sc.close();
 	}
 	

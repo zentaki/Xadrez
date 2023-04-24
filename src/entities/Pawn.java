@@ -4,9 +4,8 @@ import entities.enums.Color;
 
 public class Pawn extends ChessPiece{
 
-	public Pawn(Position position, Color color, int moveCount) {
-		super(position, color, moveCount);
-		
+	public Pawn(Board board, Color color, int moveCount) {
+		super(board, color, moveCount);
 	}
 
 	@Override
