@@ -1,5 +1,6 @@
 package program;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import entities.ChessMatch;
@@ -15,28 +16,33 @@ public class Main {
 		
 		
 		ChessMatch chessMatch = new ChessMatch();
+		ChessPosition source = null;
+		ChessPosition target = null;
 		
 		while(true) {
-			clearScreen();
+			UI.clearScreen();
 			UI.printBoard(chessMatch.getPieces());
 			System.out.println();
-			System.out.print("Source: ");
-			ChessPosition source = UI.readChessPosition(sc);
+			try {
+				System.out.print("Source: ");
+				source = UI.readChessPosition(sc);
+				System.out.println();
+				System.out.print("Target: ");
+				target = UI.readChessPosition(sc);
+				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+			}
+			catch (ChessException e) {
+				System.out.println(e.getMessage() + "\n...Press enter to continue...");
+				sc.nextLine();
+				
+			}
+			catch (InputMismatchException e) {
+				System.out.println(e.getMessage() + "\n...Press enter to continue...");
+				sc.nextLine();
+			}
 			
-			System.out.println();
-			System.out.print("Target: ");
-			ChessPosition target = UI.readChessPosition(sc);
-			
-			ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
 		}
 		//sc.close();
-	}
-	
-	// https://stackoverflow.com/questions/2979383/java-clear-the-console
-	public static void clearScreen() { 
-		System.out.print("\033[H\033[2J"); 
-	 	System.out.flush(); 
-	} 
-	
+	}	
 
 }
