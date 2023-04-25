@@ -32,8 +32,13 @@ public class Board {
 		piece.position = position;		
 	}
 	
-	public Piece removePiece(Position position) {
-		return null;
+	public Piece removePiece(Position position) throws BoardException {
+		if(!positionExists(position))throw new BoardException("Fora do tabuleiro");
+		if(piece(position) == null) return null;
+		Piece p = piece(position);
+		p.position = null;
+		pieces[position.getRow()][position.getColumn()] = null;
+		return p;
 	}
 	
 	private boolean positionExists(int row, int column) {
