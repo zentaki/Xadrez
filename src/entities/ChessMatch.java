@@ -58,6 +58,7 @@ public class ChessMatch {
 	private void validateSourcePosition(Position source) throws BoardException {
 		ChessPosition p = ChessPosition.fromPosition(source);
 		if(!board.thereIsAPiece(source))throw new ChessException("Nao há peça na posiçao " + p.toString());
+		if(!board.piece(source).isThereAnyPossibleMove())throw new ChessException("Nao há movimentos possiveis");
 	}
 	
 	public ChessPiece replacePromotedPiece(String type) {
