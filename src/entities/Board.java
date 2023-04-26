@@ -7,7 +7,7 @@ public class Board {
 	private int columns;
 	private Piece[][] pieces;
 	
-	public Board(int rows, int columns) throws BoardException {
+	public Board(int rows, int columns) {
 		if(rows < 1 || columns < 1)throw new BoardException("Error: Os valores devem ser inteiros maiores que 0");
 		this.rows = rows;
 		this.columns = columns;
@@ -17,22 +17,22 @@ public class Board {
 	public int getRows() {return rows;}
 	public int getColumns() {return columns;}
 	
-	public Piece piece(int row, int column) throws BoardException {
+	public Piece piece(int row, int column) {
 		if(!positionExists(row,column))throw new BoardException("Posiçao fora do tabuleiro");
 		return pieces[row][column];
 	}
-	public Piece piece(Position position) throws BoardException {
+	public Piece piece(Position position) {
 		if(!positionExists(position))throw new BoardException("Posiçao fora do tabuleiro");
 		return pieces[position.getRow()][position.getColumn()];
 	}
 	
-	public void placePiece(Piece piece, Position position) throws BoardException {
+	public void placePiece(Piece piece, Position position) {
 		if(thereIsAPiece(position))throw new BoardException("Posiçao " + position + "ocupada");
 		pieces[position.getRow()][position.getColumn()] = piece;
 		piece.position = position;		
 	}
 	
-	public Piece removePiece(Position position) throws BoardException {
+	public Piece removePiece(Position position) {
 		if(!positionExists(position))throw new BoardException("Fora do tabuleiro");
 		if(piece(position) == null) return null;
 		Piece p = piece(position);
@@ -49,7 +49,7 @@ public class Board {
 		return positionExists(position.getRow(),position.getColumn());
 	}
 	
-	public boolean thereIsAPiece(Position position) throws BoardException {
+	public boolean thereIsAPiece(Position position)  {
 		if(!positionExists(position))throw new BoardException("Posiçao fora do tabuleiro");
 		return piece(position) != null;
 	}

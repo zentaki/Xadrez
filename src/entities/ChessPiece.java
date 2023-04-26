@@ -1,6 +1,7 @@
 package entities;
 
 import entities.enums.Color;
+import exception.BoardException;
 
 public abstract class ChessPiece extends Piece{
 	private Color color;
@@ -16,8 +17,9 @@ public abstract class ChessPiece extends Piece{
 	
 	public ChessPosition getChessPosition() {return null;}
 	
-	public boolean isThereOpponentPiece(Position position) {
-		return false;
+	protected boolean isThereOpponentPiece(Position position) {
+		ChessPiece p = (ChessPiece)getBoard().piece(position);
+		return p != null && p.getColor() != color;
 	}
 	public void increaseMoveCount() {}
 	public void decreaseMoveCount() {}

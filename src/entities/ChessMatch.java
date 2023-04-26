@@ -13,7 +13,7 @@ public class ChessMatch {
 	private ChessPiece enPassantVulnerable;
 	private ChessPiece promoted;
 	
-	public ChessMatch() throws BoardException, ChessException {
+	public ChessMatch(){
 		board = new Board(8,8);
 		initalSetup();
 	}
@@ -26,7 +26,7 @@ public class ChessMatch {
 	public ChessPiece getEnPassantVulnerable() {return enPassantVulnerable;}
 	public ChessPiece getPromoted() {return promoted;}
 
-	public ChessPiece[][] getPieces() throws BoardException{
+	public ChessPiece[][] getPieces() {
 		ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColumns()];
 		for(int i=0; i < board.getRows(); i++) {
 			for(int j=0; j < board.getColumns(); j++) {
@@ -40,36 +40,41 @@ public class ChessMatch {
 		return null;
 	}
 	
-	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) throws BoardException {
+	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
 		validateSourcePosition(source);
+		validateTargetPosition(source, target);
 		Piece capturedPiece = makeMove(source,target);
 		return (ChessPiece)capturedPiece;
 	}
 	
-	private Piece makeMove(Position source, Position target) throws BoardException {
+	private Piece makeMove(Position source, Position target) {
 		Piece p = board.removePiece(source);
 		Piece capturedPiece = board.removePiece(target);
 		board.placePiece(p, target);
 		return capturedPiece;
 	}
 	
-	private void validateSourcePosition(Position source) throws BoardException {
+	private void validateSourcePosition(Position source) {
 		ChessPosition p = ChessPosition.fromPosition(source);
 		if(!board.thereIsAPiece(source))throw new ChessException("Nao há peça na posiçao " + p.toString());
 		if(!board.piece(source).isThereAnyPossibleMove())throw new ChessException("Nao há movimentos possiveis");
+	}
+	
+	public void validateTargetPosition(Position source, Position target) {
+		if(!board.piece(source).possibleMove(target))throw new ChessException("Nao pode mover para o destino");
 	}
 	
 	public ChessPiece replacePromotedPiece(String type) {
 		return null;
 	}
 	
-	private void placeNewPiece(char column, int row, ChessPiece piece) throws BoardException, ChessException {
+	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
 	}
 	
-	private void initalSetup() throws BoardException, ChessException {
+	private void initalSetup() {
 		
 		placeNewPiece('a', 8, new Rook(board, Color.BLACK));
 		placeNewPiece('b', 8, new Knight(board, Color.BLACK));
