@@ -56,7 +56,7 @@ public class ChessMatch {
 	}
 	
 	private void validateSourcePosition(Position source) throws BoardException {
-		ChessPosition p = new ChessPosition((char)('a' - source.getColumn()), 8 - source.getRow());
+		ChessPosition p = ChessPosition.fromPosition(source);
 		if(!board.thereIsAPiece(source))throw new ChessException("Nao há peça na posiçao " + p.toString());
 	}
 	
