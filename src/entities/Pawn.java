@@ -32,7 +32,7 @@ public class Pawn extends ChessPiece{
 			if(getBoard().positionExists(p) && canMove(p)) {
 				mat[p.getRow()][p.getColumn()] = true;
 				p.setValues(position.getRow() - 2, position.getColumn());
-				if(getBoard().positionExists(p) && canMove(p) && !this.getMoved())mat[p.getRow()][p.getColumn()] = true;
+				if(getBoard().positionExists(p) && canMove(p) && this.getMoveCount() == 0)mat[p.getRow()][p.getColumn()] = true;
 			}
 			//diagona cima direita
 			p.setValues(position.getRow() - 1, position.getColumn() + 1);
@@ -47,7 +47,7 @@ public class Pawn extends ChessPiece{
 			if(getBoard().positionExists(p) && canMove(p)) {
 				mat[p.getRow()][p.getColumn()] = true;
 				p.setValues(position.getRow() + 2, position.getColumn());
-				if(getBoard().positionExists(p) && canMove(p) && !this.getMoved())mat[p.getRow()][p.getColumn()] = true;
+				if(getBoard().positionExists(p) && canMove(p) && this.getMoveCount() == 0)mat[p.getRow()][p.getColumn()] = true;
 			}
 			//diagona cima direita
 			p.setValues(position.getRow() + 1, position.getColumn() + 1);
