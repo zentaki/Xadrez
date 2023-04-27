@@ -88,7 +88,12 @@ public class ChessMatch {
 		placeNewPiece('g', 8, new Knight(board, Color.BLACK));
 		placeNewPiece('h', 8, new Rook(board, Color.BLACK));
 		
-		placeNewPiece('d', 4, new Rook(board, Color.WHITE));		
+		
+		placeNewPiece('d', 4, new King(board, Color.WHITE));	
+		placeNewPiece('d', 3, new Rook(board, Color.WHITE));
+		placeNewPiece('d', 5, new Rook(board, Color.WHITE));
+		placeNewPiece('e', 4, new Rook(board, Color.WHITE));
+		placeNewPiece('c', 4, new Rook(board, Color.WHITE));
 		
 		placeNewPiece('a', 1, new Rook(board, Color.WHITE));
 		placeNewPiece('b', 1, new Knight(board, Color.WHITE));
