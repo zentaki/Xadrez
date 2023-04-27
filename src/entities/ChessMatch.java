@@ -1,7 +1,6 @@
 package entities;
 
 import entities.enums.Color;
-import exception.BoardException;
 import exception.ChessException;
 
 public class ChessMatch {
@@ -48,8 +47,10 @@ public class ChessMatch {
 		Position target = targetPosition.toPosition();
 		validateSourcePosition(source);
 		validateTargetPosition(source, target);
-		Piece capturedPiece = makeMove(source,target);
-		return (ChessPiece)capturedPiece;
+		Piece p = board.piece(source);
+		p.setMoved(true);
+		return (ChessPiece)makeMove(source,target);
+		
 	}
 	
 	private Piece makeMove(Position source, Position target) {

@@ -3,12 +3,16 @@ package entities;
 public abstract class Piece {
 	protected Position position;
 	private Board board;
+	private boolean moved;
 
 	public Piece(Board board) {
 		this.board = board;
+		moved = false;
 	}
 
+	public boolean getMoved() {return moved;}
 	protected Board getBoard() {return board;}
+	public void setMoved(boolean moved) {this.moved = moved;}
 	
 	public abstract boolean[][] possibleMoves();
 	

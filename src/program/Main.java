@@ -6,7 +6,6 @@ import java.util.Scanner;
 import entities.ChessMatch;
 import entities.ChessPiece;
 import entities.ChessPosition;
-import exception.BoardException;
 import exception.ChessException;
 
 public class Main {
