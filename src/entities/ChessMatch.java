@@ -14,6 +14,8 @@ public class ChessMatch {
 	
 	public ChessMatch(){
 		board = new Board(8,8);
+		turn = 1;
+		currentPlayer = Color.WHITE;
 		initalSetup();
 	}
 	
@@ -49,6 +51,7 @@ public class ChessMatch {
 		validateTargetPosition(source, target);
 		Piece p = board.piece(source);
 		p.setMoved(true);
+		nextTurn();
 		return (ChessPiece)makeMove(source,target);
 		
 	}
@@ -63,11 +66,17 @@ public class ChessMatch {
 	private void validateSourcePosition(Position source) {
 		ChessPosition p = ChessPosition.fromPosition(source);
 		if(!board.thereIsAPiece(source))throw new ChessException("Nao há peça na posiçao " + p.toString());
+		if(currentPlayer != ((ChessPiece)board.piece(source)).getColor())throw new ChessException("Essa peça nao é sua");
 		if(!board.piece(source).isThereAnyPossibleMove())throw new ChessException("Nao há movimentos possiveis");
 	}
 	
 	public void validateTargetPosition(Position source, Position target) {
 		if(!board.piece(source).possibleMove(target))throw new ChessException("Nao pode mover para o destino");
+	}
+	
+	private void nextTurn() {
+		turn++;
+		currentPlayer = currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE;
 	}
 	
 	public ChessPiece replacePromotedPiece(String type) {

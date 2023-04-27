@@ -20,7 +20,7 @@ public class Main {
 		
 		while(true) {
 			UI.clearScreen();
-			UI.printBoard(chessMatch.getPieces());
+			UI.printMatch(chessMatch);
 			System.out.println();
 			try {
 				System.out.print("Source: ");
