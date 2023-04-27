@@ -22,7 +22,7 @@ public class Main {
 		
 		List<ChessPiece> captured = new ArrayList<>();
 		
-		while(true) {
+		while(!chessMatch.isCheckMate()) {
 			UI.clearScreen();
 			UI.printMatch(chessMatch, captured);
 			System.out.println();
@@ -51,7 +51,9 @@ public class Main {
 			}
 			
 		}
-		//sc.close();
+		UI.clearScreen();
+		UI.printMatch(chessMatch, captured);
+		sc.close();
 	}	
 
 }

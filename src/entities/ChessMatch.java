@@ -61,13 +61,17 @@ public class ChessMatch {
 		
 		if(testCheck(currentPlayer)) {
 			undoMove(source, target, capturedPiece);
-			throw new ChessException("Voce nao pdoe se colocar em check");
+			throw new ChessException("Voce esta em check");
 		}
 		
 		check = testCheck(opponent(currentPlayer)) ? true : false;
 		
-		p.setMoved(true);
-		nextTurn();
+		if(testCheckMate(opponent(currentPlayer)))checkMate = true;
+		else {
+			p.setMoved(true);
+			nextTurn();
+		}
+		
 		return (ChessPiece)capturedPiece;
 		
 	}
@@ -135,6 +139,27 @@ public class ChessMatch {
 		return false;
 	}
 	
+	private boolean testCheckMate(Color color) {
+		if(!testCheck(color))return false;
+		List<Piece> list = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == color).collect(Collectors.toList());
+		for(Piece p : list) {
+			boolean[][] mat = p.possibleMoves();
+			for(int i=0; i < board.getRows(); i++) {
+				for(int j=0; j < board.getColumns(); j++) {
+					if(mat[i][j]) {
+						Position source = ((ChessPiece)p).getChessPosition().toPosition();
+						Position target = new Position(i,j);
+						Piece capturedPiece = makeMove(source, target);
+						boolean testCheck = testCheck(color);
+						undoMove(source, target, capturedPiece);
+						if(!testCheck)return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
 	public ChessPiece replacePromotedPiece(String type) {
 		return null;
 	}
@@ -160,6 +185,7 @@ public class ChessMatch {
 		placeNewPiece('d', 3, new Rook(board, Color.WHITE));
 		placeNewPiece('d', 5, new Rook(board, Color.WHITE));
 		placeNewPiece('e', 4, new Rook(board, Color.WHITE));
+		placeNewPiece('e', 5, new Rook(board, Color.WHITE));
 		placeNewPiece('c', 4, new Rook(board, Color.WHITE));
 		
 		placeNewPiece('a', 1, new Rook(board, Color.WHITE));
