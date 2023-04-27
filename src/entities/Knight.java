@@ -15,8 +15,11 @@ public class Knight extends ChessPiece{
 
 	@Override
 	public boolean[][] possibleMoves() {
-		// TODO Auto-generated method stub
-		return null;
+		boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
+		
+		Position p = new Position(0,0);
+		
+		return mat;
 	}
 
 }
