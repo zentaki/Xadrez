@@ -3,11 +3,11 @@ package entities;
 import entities.enums.Color;
 
 public class Knight extends ChessPiece{
-
+	
 	public Knight(Board board, Color color) {
 		super(board, color);
 	}
-	
+		
 	@Override
 	public String toString() {
 		return "H";
@@ -17,6 +17,8 @@ public class Knight extends ChessPiece{
 		ChessPiece p = (ChessPiece)getBoard().piece(position);
 		return p == null || isThereOpponentPiece(p.position);
 	}
+	
+	
 
 	@Override
 	public boolean[][] possibleMoves() {
