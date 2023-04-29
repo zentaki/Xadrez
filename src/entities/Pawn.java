@@ -4,9 +4,12 @@ import entities.enums.Color;
 
 public class Pawn extends ChessPiece{
 	
+	private ChessMatch chessMatch;
+	
 
-	public Pawn(Board board, Color color) {
+	public Pawn(Board board, Color color, ChessMatch chessMatch) {
 		super(board, color);
+		this.chessMatch = chessMatch;
 	}
 	
 	@Override
@@ -40,6 +43,15 @@ public class Pawn extends ChessPiece{
 			//diagona cima esquerda
 			p.setValues(position.getRow() - 1, position.getColumn() - 1);
 			if(getBoard().positionExists(p) && isThereOpponentPiece(p))mat[p.getRow()][p.getColumn()] = true;
+			
+			//# special move en passant white
+			if(position.getRow() == 3) {
+				p.setValues(position.getRow(), position.getColumn() - 1);
+				if(getBoard().positionExists(p) && isThereOpponentPiece(p) && getBoard().piece(p) == chessMatch.getEnPassantVulnerable())mat[p.getRow()-1][p.getColumn()] = true;
+				p.setValues(position.getRow(), position.getColumn() + 1);
+				if(getBoard().positionExists(p) && isThereOpponentPiece(p) && getBoard().piece(p) == chessMatch.getEnPassantVulnerable())mat[p.getRow()-1][p.getColumn()] = true;
+			}
+			
 		}
 		
 		if(this.getColor() == Color.BLACK) {
@@ -55,6 +67,14 @@ public class Pawn extends ChessPiece{
 			//diagona cima esquerda
 			p.setValues(position.getRow() + 1, position.getColumn() - 1);
 			if(getBoard().positionExists(p) && isThereOpponentPiece(p))mat[p.getRow()][p.getColumn()] = true;
+			
+			//# special move en passant black
+			if(position.getRow() == 4) {
+				p.setValues(position.getRow(), position.getColumn() - 1);
+				if(getBoard().positionExists(p) && isThereOpponentPiece(p) && getBoard().piece(p) == chessMatch.getEnPassantVulnerable())mat[p.getRow()+1][p.getColumn()] = true;
+				p.setValues(position.getRow(), position.getColumn() + 1);
+				if(getBoard().positionExists(p) && isThereOpponentPiece(p) && getBoard().piece(p) == chessMatch.getEnPassantVulnerable())mat[p.getRow()+1][p.getColumn()] = true;
+			}
 		}
 		
 		
